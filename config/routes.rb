@@ -1,4 +1,7 @@
 My401kCms::Application.routes.draw do
+  mount BcmsMy401kLibrary::Engine => '/bcms_my401k_library'
+  #mount_bcms_my401k_library
+
   mount_bcms_blog
 
   # The priority is based upon order of creation:
