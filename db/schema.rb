@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323210422) do
+ActiveRecord::Schema.define(:version => 20130323212351) do
 
   create_table "bcms_blog_blog_comment_versions", :force => true do |t|
     t.integer  "original_record_id"
