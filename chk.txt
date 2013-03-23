@@ -1,0 +1,471 @@
+14c14
+< ActiveRecord::Schema.define(:version => 20100705083859) do
+---
+> ActiveRecord::Schema.define(:version => 20130323134101) do
+16,17c16,17
+<   create_table "attachment_versions", :force => true do |t|
+<     t.integer  "attachment_id"
+---
+>   create_table "bcms_blog_blog_comment_versions", :force => true do |t|
+>     t.integer  "original_record_id"
+19,25c19,24
+<     t.string   "file_path"
+<     t.string   "file_location"
+<     t.string   "file_extension"
+<     t.string   "file_type"
+<     t.integer  "file_size"
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.integer  "post_id"
+>     t.string   "author"
+>     t.string   "email"
+>     t.string   "url"
+>     t.string   "ip"
+>     t.text     "body"
+27,29c26,28
+<     t.boolean  "published",       :default => false
+<     t.boolean  "deleted",         :default => false
+<     t.boolean  "archived",        :default => false
+---
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+32a32,33
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+35c36,58
+<   add_index "attachment_versions", ["attachment_id"], :name => "index_attachment_versions_on_attachment_id"
+---
+>   create_table "bcms_blog_blog_comments", :force => true do |t|
+>     t.integer  "version"
+>     t.integer  "lock_version",  :default => 0
+>     t.integer  "post_id"
+>     t.string   "author"
+>     t.string   "email"
+>     t.string   "url"
+>     t.string   "ip"
+>     t.text     "body"
+>     t.string   "name"
+>     t.boolean  "published",     :default => false
+>     t.boolean  "deleted",       :default => false
+>     t.boolean  "archived",      :default => false
+>     t.integer  "created_by_id"
+>     t.integer  "updated_by_id"
+>     t.datetime "created_at",                       :null => false
+>     t.datetime "updated_at",                       :null => false
+>   end
+> 
+>   create_table "bcms_blog_blog_group_memberships", :force => true do |t|
+>     t.integer "blog_id"
+>     t.integer "group_id"
+>   end
+37c60,61
+<   create_table "attachments", :force => true do |t|
+---
+>   create_table "bcms_blog_blog_post_versions", :force => true do |t|
+>     t.integer  "original_record_id"
+39,46c63,65
+<     t.integer  "lock_version",   :default => 0
+<     t.string   "file_path"
+<     t.string   "file_location"
+<     t.string   "file_extension"
+<     t.string   "file_type"
+<     t.integer  "file_size"
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.integer  "blog_id"
+>     t.integer  "author_id"
+>     t.integer  "category_id"
+48,50c67,75
+<     t.boolean  "published",      :default => false
+<     t.boolean  "deleted",        :default => false
+<     t.boolean  "archived",       :default => false
+---
+>     t.string   "slug"
+>     t.text     "summary"
+>     t.text     "body"
+>     t.integer  "comments_count"
+>     t.datetime "published_at"
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+>     t.string   "version_comment"
+52a78,137
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+>     t.integer  "attachment_id"
+>     t.integer  "attachment_version"
+>   end
+> 
+>   create_table "bcms_blog_blog_posts", :force => true do |t|
+>     t.integer  "version"
+>     t.integer  "lock_version",       :default => 0
+>     t.integer  "blog_id"
+>     t.integer  "author_id"
+>     t.integer  "category_id"
+>     t.string   "name"
+>     t.string   "slug"
+>     t.text     "summary"
+>     t.text     "body"
+>     t.integer  "comments_count"
+>     t.datetime "published_at"
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+>     t.integer  "created_by_id"
+>     t.integer  "updated_by_id"
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+>     t.integer  "attachment_id"
+>     t.integer  "attachment_version"
+>   end
+> 
+>   create_table "bcms_blog_blog_versions", :force => true do |t|
+>     t.integer  "original_record_id"
+>     t.integer  "version"
+>     t.string   "name"
+>     t.string   "format"
+>     t.text     "template"
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+>     t.string   "version_comment"
+>     t.integer  "created_by_id"
+>     t.integer  "updated_by_id"
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+>     t.boolean  "moderate_comments",  :default => true
+>   end
+> 
+>   create_table "bcms_blog_blogs", :force => true do |t|
+>     t.integer  "version"
+>     t.integer  "lock_version",      :default => 0
+>     t.string   "name"
+>     t.string   "format"
+>     t.text     "template"
+>     t.boolean  "published",         :default => false
+>     t.boolean  "deleted",           :default => false
+>     t.boolean  "archived",          :default => false
+>     t.integer  "created_by_id"
+>     t.integer  "updated_by_id"
+>     t.datetime "created_at",                           :null => false
+>     t.datetime "updated_at",                           :null => false
+>     t.boolean  "moderate_comments", :default => true
+59,60c144,145
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",       :null => false
+>     t.datetime "updated_at",       :null => false
+65,66c150,200
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at", :null => false
+>     t.datetime "updated_at", :null => false
+>   end
+> 
+>   create_table "cms_attachment_versions", :force => true do |t|
+>     t.integer  "original_record_id"
+>     t.integer  "version"
+>     t.string   "data_file_path"
+>     t.string   "file_location"
+>     t.string   "data_content_type"
+>     t.integer  "data_file_size"
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+>     t.string   "data_file_name"
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+>     t.string   "version_comment"
+>     t.integer  "created_by_id"
+>     t.integer  "updated_by_id"
+>     t.string   "data_fingerprint"
+>     t.string   "attachable_type"
+>     t.string   "attachment_name"
+>     t.integer  "attachable_id"
+>     t.integer  "attachable_version"
+>     t.string   "cardinality"
+>   end
+> 
+>   add_index "cms_attachment_versions", ["original_record_id"], :name => "index_attachment_versions_on_original_record_id"
+> 
+>   create_table "cms_attachments", :force => true do |t|
+>     t.integer  "version"
+>     t.integer  "lock_version",       :default => 0
+>     t.string   "data_file_path"
+>     t.string   "file_location"
+>     t.string   "data_content_type"
+>     t.integer  "data_file_size"
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+>     t.string   "data_file_name"
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+>     t.integer  "created_by_id"
+>     t.integer  "updated_by_id"
+>     t.string   "data_fingerprint"
+>     t.string   "attachable_type"
+>     t.string   "attachment_name"
+>     t.integer  "attachable_id"
+>     t.integer  "attachable_version"
+>     t.string   "cardinality"
+77,78c211,212
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",          :null => false
+>     t.datetime "updated_at",          :null => false
+88,89c222,223
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at", :null => false
+>     t.datetime "updated_at", :null => false
+96,97c230,231
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                           :null => false
+>     t.datetime "updated_at",                           :null => false
+104c238
+<     t.integer  "dynamic_view_id"
+---
+>     t.integer  "original_record_id"
+111,115c245,249
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+<     t.boolean  "published",       :default => false
+<     t.boolean  "deleted",         :default => false
+<     t.boolean  "archived",        :default => false
+---
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+129,130c263,264
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                       :null => false
+>     t.datetime "updated_at",                       :null => false
+147,148c281,282
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",   :null => false
+>     t.datetime "updated_at",   :null => false
+152c286
+<     t.integer  "file_block_id"
+---
+>     t.integer  "original_record_id"
+164,165c298,299
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+168c302
+<   add_index "file_block_versions", ["file_block_id"], :name => "index_file_block_versions_on_file_block_id"
+---
+>   add_index "file_block_versions", ["original_record_id"], :name => "index_file_block_versions_on_original_record_id"
+183,184c317,318
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+216,217c350,351
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                    :null => false
+>     t.datetime "updated_at",                    :null => false
+226,227c360,361
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",    :null => false
+>     t.datetime "updated_at",    :null => false
+234c368
+<     t.integer  "html_block_id"
+---
+>     t.integer  "original_record_id"
+238,240c372,374
+<     t.boolean  "published",       :default => false
+<     t.boolean  "deleted",         :default => false
+<     t.boolean  "archived",        :default => false
+---
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+244,245c378,379
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+248c382
+<   add_index "html_block_versions", ["html_block_id"], :name => "index_html_block_versions_on_html_block_id"
+---
+>   add_index "html_block_versions", ["original_record_id"], :name => "index_html_block_versions_on_original_record_id"
+261,262c395,396
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                       :null => false
+>     t.datetime "updated_at",                       :null => false
+268c402
+<     t.integer  "link_id"
+---
+>     t.integer  "original_record_id"
+272,277c406,411
+<     t.boolean  "new_window",      :default => false
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+<     t.boolean  "published",       :default => false
+<     t.boolean  "deleted",         :default => false
+<     t.boolean  "archived",        :default => false
+---
+>     t.boolean  "new_window",         :default => false
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+289,290c423,424
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                        :null => false
+>     t.datetime "updated_at",                        :null => false
+298a433,465
+>   create_table "my401k_meeting_versions", :force => true do |t|
+>     t.integer  "original_record_id"
+>     t.integer  "version"
+>     t.string   "name"
+>     t.boolean  "active"
+>     t.datetime "start_date"
+>     t.datetime "end_time"
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+>     t.boolean  "published",          :default => false
+>     t.boolean  "deleted",            :default => false
+>     t.boolean  "archived",           :default => false
+>     t.string   "version_comment"
+>     t.integer  "created_by_id"
+>     t.integer  "updated_by_id"
+>   end
+> 
+>   create_table "my401k_meetings", :force => true do |t|
+>     t.integer  "version"
+>     t.integer  "lock_version",  :default => 0
+>     t.string   "name"
+>     t.boolean  "active"
+>     t.datetime "start_date"
+>     t.datetime "end_time"
+>     t.datetime "created_at",                       :null => false
+>     t.datetime "updated_at",                       :null => false
+>     t.boolean  "published",     :default => false
+>     t.boolean  "deleted",       :default => false
+>     t.boolean  "archived",      :default => false
+>     t.integer  "created_by_id"
+>     t.integer  "updated_by_id"
+>   end
+> 
+304,305c471,472
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",    :null => false
+>     t.datetime "updated_at",    :null => false
+313,314c480,481
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at", :null => false
+>     t.datetime "updated_at", :null => false
+318c485
+<     t.integer  "page_id"
+---
+>     t.integer  "original_record_id"
+335,336c502,503
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+339c506
+<   add_index "page_versions", ["page_id"], :name => "index_page_versions_on_page_id"
+---
+>   add_index "page_versions", ["original_record_id"], :name => "index_page_versions_on_original_record_id"
+358,359c525,526
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                            :null => false
+>     t.datetime "updated_at",                            :null => false
+360a528
+>     t.integer  "site_id"
+372,373c540,541
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",  :null => false
+>     t.datetime "updated_at",  :null => false
+391,392c559,560
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                       :null => false
+>     t.datetime "updated_at",                       :null => false
+400,401c568,569
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at", :null => false
+>     t.datetime "updated_at", :null => false
+410,411c578,579
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at", :null => false
+>     t.datetime "updated_at", :null => false
+423,424c591,592
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",                    :null => false
+>     t.datetime "updated_at",                    :null => false
+433,434c601,605
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",  :null => false
+>     t.datetime "updated_at",  :null => false
+>     t.text     "path"
+>     t.text     "identifier"
+>     t.string   "locale"
+442,443c613,614
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",       :null => false
+>     t.datetime "updated_at",       :null => false
+448,449c619,620
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at", :null => false
+>     t.datetime "updated_at", :null => false
+459,460c630,631
+<     t.datetime "created_at"
+<     t.datetime "updated_at"
+---
+>     t.datetime "created_at",     :null => false
+>     t.datetime "updated_at",     :null => false
