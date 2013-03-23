@@ -1,4 +1,6 @@
 My401kCms::Application.routes.draw do
+  mount_bcms_blog
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

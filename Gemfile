@@ -45,3 +45,5 @@ group :development, :test do
   gem 'nifty-generators', git: 'http://github.com/dcvezzani/nifty-generators.git'
   gem 'debugger'
 end
+
+gem "bcms_blog"

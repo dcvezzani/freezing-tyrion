@@ -11,45 +11,130 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100705083859) do
+ActiveRecord::Schema.define(:version => 20130323172364) do
 
-  create_table "attachment_versions", :force => true do |t|
+  create_table "bcms_blog_blog_comment_versions", :force => true do |t|
     t.integer  "original_record_id"
     t.integer  "version"
-    t.string   "file_path"
-    t.string   "file_location"
-    t.string   "file_extension"
-    t.string   "file_type"
-    t.integer  "file_size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "post_id"
+    t.string   "author"
+    t.string   "email"
+    t.string   "url"
+    t.string   "ip"
+    t.text     "body"
     t.string   "name"
-    t.boolean  "published",       :default => false
-    t.boolean  "deleted",         :default => false
-    t.boolean  "archived",        :default => false
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
     t.string   "version_comment"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
   end
 
-  add_index "attachment_versions", ["original_record_id"], :name => "index_attachment_versions_on_attachment_id"
-
-  create_table "attachments", :force => true do |t|
+  create_table "bcms_blog_blog_comments", :force => true do |t|
     t.integer  "version"
-    t.integer  "lock_version",   :default => 0
-    t.string   "file_path"
-    t.string   "file_location"
-    t.string   "file_extension"
-    t.string   "file_type"
-    t.integer  "file_size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.integer  "lock_version",  :default => 0
+    t.integer  "post_id"
+    t.string   "author"
+    t.string   "email"
+    t.string   "url"
+    t.string   "ip"
+    t.text     "body"
     t.string   "name"
-    t.boolean  "published",      :default => false
-    t.boolean  "deleted",        :default => false
-    t.boolean  "archived",       :default => false
+    t.boolean  "published",     :default => false
+    t.boolean  "deleted",       :default => false
+    t.boolean  "archived",      :default => false
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+  end
+
+  create_table "bcms_blog_blog_group_memberships", :force => true do |t|
+    t.integer "blog_id"
+    t.integer "group_id"
+  end
+
+  create_table "bcms_blog_blog_post_versions", :force => true do |t|
+    t.integer  "original_record_id"
+    t.integer  "version"
+    t.integer  "blog_id"
+    t.integer  "author_id"
+    t.integer  "category_id"
+    t.string   "name"
+    t.string   "slug"
+    t.text     "summary"
+    t.text     "body"
+    t.integer  "comments_count"
+    t.datetime "published_at"
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
+    t.string   "version_comment"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.integer  "attachment_id"
+    t.integer  "attachment_version"
+  end
+
+  create_table "bcms_blog_blog_posts", :force => true do |t|
+    t.integer  "version"
+    t.integer  "lock_version",       :default => 0
+    t.integer  "blog_id"
+    t.integer  "author_id"
+    t.integer  "category_id"
+    t.string   "name"
+    t.string   "slug"
+    t.text     "summary"
+    t.text     "body"
+    t.integer  "comments_count"
+    t.datetime "published_at"
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.integer  "attachment_id"
+    t.integer  "attachment_version"
+  end
+
+  create_table "bcms_blog_blog_versions", :force => true do |t|
+    t.integer  "original_record_id"
+    t.integer  "version"
+    t.string   "name"
+    t.string   "format"
+    t.text     "template"
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
+    t.string   "version_comment"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.datetime "created_at",                            :null => false
+    t.datetime "updated_at",                            :null => false
+    t.boolean  "moderate_comments",  :default => true
+  end
+
+  create_table "bcms_blog_blogs", :force => true do |t|
+    t.integer  "version"
+    t.integer  "lock_version",      :default => 0
+    t.string   "name"
+    t.string   "format"
+    t.text     "template"
+    t.boolean  "published",         :default => false
+    t.boolean  "deleted",           :default => false
+    t.boolean  "archived",          :default => false
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.boolean  "moderate_comments", :default => true
   end
 
   create_table "categories", :force => true do |t|
@@ -64,6 +149,55 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "cms_attachment_versions", :force => true do |t|
+    t.integer  "original_record_id"
+    t.integer  "version"
+    t.string   "data_file_path"
+    t.string   "file_location"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "data_file_name"
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
+    t.string   "version_comment"
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.string   "data_fingerprint"
+    t.string   "attachable_type"
+    t.string   "attachment_name"
+    t.integer  "attachable_id"
+    t.integer  "attachable_version"
+    t.string   "cardinality"
+  end
+
+  add_index "cms_attachment_versions", ["original_record_id"], :name => "index_attachment_versions_on_attachment_id"
+
+  create_table "cms_attachments", :force => true do |t|
+    t.integer  "version"
+    t.integer  "lock_version",       :default => 0
+    t.string   "data_file_path"
+    t.string   "file_location"
+    t.string   "data_content_type"
+    t.integer  "data_file_size"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "data_file_name"
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
+    t.integer  "created_by_id"
+    t.integer  "updated_by_id"
+    t.string   "data_fingerprint"
+    t.string   "attachable_type"
+    t.string   "attachment_name"
+    t.integer  "attachable_id"
+    t.integer  "attachable_version"
+    t.string   "cardinality"
   end
 
   create_table "connectors", :force => true do |t|
@@ -110,9 +244,9 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
     t.text     "body"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",       :default => false
-    t.boolean  "deleted",         :default => false
-    t.boolean  "archived",        :default => false
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
     t.string   "version_comment"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
@@ -235,9 +369,9 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
     t.integer  "version"
     t.string   "name"
     t.text     "content"
-    t.boolean  "published",                           :default => false
-    t.boolean  "deleted",                             :default => false
-    t.boolean  "archived",                            :default => false
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
     t.string   "version_comment"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
@@ -250,12 +384,12 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
 
   create_table "html_blocks", :force => true do |t|
     t.integer  "version"
-    t.integer  "lock_version",                      :default => 0
+    t.integer  "lock_version",  :default => 0
     t.string   "name"
     t.text     "content"
-    t.boolean  "published",                         :default => false
-    t.boolean  "deleted",                           :default => false
-    t.boolean  "archived",                          :default => false
+    t.boolean  "published",     :default => false
+    t.boolean  "deleted",       :default => false
+    t.boolean  "archived",      :default => false
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
     t.datetime "created_at"
@@ -269,12 +403,12 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
     t.integer  "version"
     t.string   "name"
     t.string   "url"
-    t.boolean  "new_window",      :default => false
+    t.boolean  "new_window",         :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "published",       :default => false
-    t.boolean  "deleted",         :default => false
-    t.boolean  "archived",        :default => false
+    t.boolean  "published",          :default => false
+    t.boolean  "deleted",            :default => false
+    t.boolean  "archived",           :default => false
     t.string   "version_comment"
     t.integer  "created_by_id"
     t.integer  "updated_by_id"
