@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20100705083859) do
 
   create_table "attachment_versions", :force => true do |t|
-    t.integer  "attachment_id"
+    t.integer  "original_record_id"
     t.integer  "version"
     t.string   "file_path"
     t.string   "file_location"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
     t.integer  "updated_by_id"
   end
 
-  add_index "attachment_versions", ["attachment_id"], :name => "index_attachment_versions_on_attachment_id"
+  add_index "attachment_versions", ["original_record_id"], :name => "index_attachment_versions_on_attachment_id"
 
   create_table "attachments", :force => true do |t|
     t.integer  "version"
@@ -101,7 +101,7 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
   add_index "content_types", ["name"], :name => "index_content_types_on_name"
 
   create_table "dynamic_view_versions", :force => true do |t|
-    t.integer  "dynamic_view_id"
+    t.integer  "original_record_id"
     t.integer  "version"
     t.string   "type"
     t.string   "name"
@@ -149,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
   end
 
   create_table "file_block_versions", :force => true do |t|
-    t.integer  "file_block_id"
+    t.integer  "original_record_id"
     t.integer  "version"
     t.string   "type"
     t.string   "name"
@@ -165,7 +165,7 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
     t.datetime "updated_at"
   end
 
-  add_index "file_block_versions", ["file_block_id"], :name => "index_file_block_versions_on_file_block_id"
+  add_index "file_block_versions", ["original_record_id"], :name => "index_file_block_versions_on_file_block_id"
   add_index "file_block_versions", ["version"], :name => "index_file_block_versions_on_version"
 
   create_table "file_blocks", :force => true do |t|
@@ -231,10 +231,10 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
   add_index "groups", ["group_type_id"], :name => "index_groups_on_group_type_id"
 
   create_table "html_block_versions", :force => true do |t|
-    t.integer  "html_block_id"
+    t.integer  "original_record_id"
     t.integer  "version"
     t.string   "name"
-    t.text     "content",         :limit => 16777215
+    t.text     "content"
     t.boolean  "published",                           :default => false
     t.boolean  "deleted",                             :default => false
     t.boolean  "archived",                            :default => false
@@ -245,14 +245,14 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
     t.datetime "updated_at"
   end
 
-  add_index "html_block_versions", ["html_block_id"], :name => "index_html_block_versions_on_html_block_id"
+  add_index "html_block_versions", ["original_record_id"], :name => "index_html_block_versions_on_html_block_id"
   add_index "html_block_versions", ["version"], :name => "index_html_block_versions_on_version"
 
   create_table "html_blocks", :force => true do |t|
     t.integer  "version"
     t.integer  "lock_version",                      :default => 0
     t.string   "name"
-    t.text     "content",       :limit => 16777215
+    t.text     "content"
     t.boolean  "published",                         :default => false
     t.boolean  "deleted",                           :default => false
     t.boolean  "archived",                          :default => false
@@ -265,7 +265,7 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
   add_index "html_blocks", ["deleted"], :name => "index_html_blocks_on_deleted"
 
   create_table "link_versions", :force => true do |t|
-    t.integer  "link_id"
+    t.integer  "original_record_id"
     t.integer  "version"
     t.string   "name"
     t.string   "url"
@@ -315,7 +315,7 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
   end
 
   create_table "page_versions", :force => true do |t|
-    t.integer  "page_id"
+    t.integer  "original_record_id"
     t.integer  "version"
     t.string   "name"
     t.string   "title"
@@ -336,7 +336,7 @@ ActiveRecord::Schema.define(:version => 20100705083859) do
     t.datetime "updated_at"
   end
 
-  add_index "page_versions", ["page_id"], :name => "index_page_versions_on_page_id"
+  add_index "page_versions", ["original_record_id"], :name => "index_page_versions_on_page_id"
 
   create_table "pages", :force => true do |t|
     t.integer  "version"
