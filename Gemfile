@@ -47,3 +47,5 @@ group :development, :test do
 end
 
 gem "bcms_blog"
+gem "bcms_my401k_library", :path => "/Users/davidvezzani/rails-app/my401k_cms/bcms_my401k_library"
+
