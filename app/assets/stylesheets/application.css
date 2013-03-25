@@ -14,5 +14,5 @@
  *= require_tree .
  *= require ../bootstrap/css/bootstrap
  *= require ../bootstrap/css/bootstrap-responsive
- *= require ../bootstrap-wizard/prettify
+ *= require ../twitboot-wizard/prettify
  */

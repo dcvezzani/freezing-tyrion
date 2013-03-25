@@ -61,24 +61,19 @@ module My401kCms
 
     # Additional paths where assets may be looked for
     # config.assets.paths %W(#{config.root}/mediabrowser #{config.root}/images-orig #{config.root}/demo #{config.root}/overcast #{config.root}/tinymce/jscripts/tiny_mce #{config.root}/bootstrap 
-    config.assets.paths %W(#{config.root}/images-orig #{config.root}/demo #{config.root}/overcast #{config.root}/bootstrap #{config.root}/layout #{config.root}/bootstrap-wizard)
+    # config.assets.paths %W(#{config.root}/images-orig #{config.root}/demo #{config.root}/bootstrap #{config.root}/layout)
 
     initializer :after_append_asset_paths, 
                 :group => :all, 
                 :after => :append_assets_path do
-       #config.assets.paths.unshift Rails.root.join(config.root, "app", "assets", "images-orig").to_s
-       #config.assets.paths.unshift Rails.root.join(config.root, "app", "assets", "mediabrowser", "css").to_s
-       config.assets.paths.unshift Rails.root.join(config.root, "app", "assets", "overcast").to_s
-       config.assets.paths.unshift Rails.root.join(config.root, "app", "assets", "demo").to_s
-       #config.assets.paths.unshift Rails.root.join(config.root, "app", "assets", "tinymce", "jscripts", "tiny_mce").to_s
-       config.assets.paths.unshift Rails.root.join(config.root, "app", "assets", "bootstrap", "css").to_s
-       config.assets.paths.unshift Rails.root.join(config.root, "app", "assets", "bootstrap-wizard").to_s
+       # config.assets.paths = config.assets.paths.select{|x| !x.match(/bcms_my401k_presentation/)}
+
+       config.assets.paths.unshift Rails.root.join(config.root, "bcms_my401k_presentation", "app", "assets", "jquery-ui-1.10.2.custom", "css", "overcast").to_s
     end
     
     # (Devise installation instructions) If you are deploying Rails 3.1 on Heroku, you may want to set:
     config.assets.initialize_on_precompile = false
   
     config.assets.precompile += ['front-page.css', 'menu-page.css']
-
   end
 end
