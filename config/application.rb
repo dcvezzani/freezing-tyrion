@@ -60,9 +60,13 @@ module My401kCms
     config.assets.version = '1.0'
 
     # Additional paths where assets may be looked for
+    # as far as I can tell bcms modules automatically include all directories under their respective
+    # assets directory, so there's no need to add any here
+    #
     # config.assets.paths %W(#{config.root}/mediabrowser #{config.root}/images-orig #{config.root}/demo #{config.root}/overcast #{config.root}/tinymce/jscripts/tiny_mce #{config.root}/bootstrap 
     # config.assets.paths %W(#{config.root}/images-orig #{config.root}/demo #{config.root}/bootstrap #{config.root}/layout)
 
+    # after all asset paths are added, this one needs to go first
     initializer :after_append_asset_paths, 
                 :group => :all, 
                 :after => :append_assets_path do
