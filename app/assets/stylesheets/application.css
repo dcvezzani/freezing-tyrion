@@ -9,5 +9,10 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require 'common/reset-eliot'
+ *= require 'common/default'
  *= require_tree .
+ *= require ../bootstrap/css/bootstrap
+ *= require ../bootstrap/css/bootstrap-responsive
+ *= require ../bootstrap-wizard/prettify
  */

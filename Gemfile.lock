@@ -10,6 +10,12 @@ PATH
     bcms_my401k_library (0.0.1)
       browsercms (~> 3.5.5)
 
+PATH
+  remote: bcms_my401k_presentation
+  specs:
+    bcms_my401k_presentation (0.0.1)
+      browsercms (~> 3.5.5)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -157,6 +163,7 @@ PLATFORMS
 DEPENDENCIES
   bcms_blog
   bcms_my401k_library!
+  bcms_my401k_presentation!
   browsercms (= 3.5.5)
   coffee-rails (~> 3.2.1)
   debugger
